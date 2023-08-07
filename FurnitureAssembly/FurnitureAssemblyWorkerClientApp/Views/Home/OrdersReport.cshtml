@@ -1,0 +1,60 @@
+﻿@using FurnitureAssemblyContracts.ViewModels
+
+@{
+    ViewData["Title"] = "Отчет по заказам";
+}
+<div class="text-center">
+    <h1 class="display-4">Отчет по заказам</h1>
+</div>
+
+<div class="text-center">
+    @{
+        <form method="post">
+            <div class="mt-3">
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label" for="dateFrom">
+                        От
+                    </label>
+                    <input type="datetime-local" id="dateFrom" name="dateFrom" />
+                </div>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label" for="dateTo">
+                        До
+                    </label>
+                    <input type="datetime-local" id="dateTo" name="dateTo" />
+                </div>
+            </div>
+            <div class="mt-3">
+                Ваш email
+                <input type="text" name="customerEmail" />
+                <button class="btn btn-primary ms-3" type="submit">Сгенерировать на почту</button>
+            </div>
+            <div class="mt-3" id="report" style="display: flex; flex-direction: column;">
+            </div>
+        </form>
+        <button class="btn btn-primary" type="button" id="genonform">Сгенерировать на форму</button>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        function check() {
+            var dateFrom = $('#dateFrom').val();
+            var dateTo = $('#dateTo').val();
+            if (dateFrom && dateTo) {
+                $.ajax({
+                    method: "GET",
+                    url: "/Home/GetOrdersReport",
+                    data: { dateFrom: dateFrom, dateTo: dateTo },
+                    success: function (result) {
+                        if (result != null) {
+                            $('#report').html(result);
+                        }
+                    }
+                });
+            };
+        }
+        check();
+        $('#genonform').on('click', (e) => check());
+    </script>
+}

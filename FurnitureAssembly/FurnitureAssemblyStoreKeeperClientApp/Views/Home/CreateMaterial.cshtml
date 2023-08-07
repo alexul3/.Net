@@ -1,0 +1,54 @@
+﻿@using FurnitureAssemblyContracts.ViewModels
+@{
+	ViewData["Title"] = "Добавление материала";
+	var userList = APIClient.GetRequest<List<UserViewModel>>($"api/user/GetUserList");
+	var scopeList = APIClient.GetRequest<List<ScopeViewModel>>($"api/scope/GetScopeList");
+}
+
+<div class="text-center">
+	<h2 class="display-4">Добавление материала</h2>
+</div>
+<form method="post">
+	<div class="row">
+		<div class="col-4">Название:</div>
+		<div class="col-8"><input type="text" name="name" id="name" /></div>
+	</div>
+		<div class="row">
+		<div class="col-4">Стоимость:</div>
+		<div class="col-8"><input type="text" name="cost" id="cost" /></div>
+	</div>
+	<div class="row">
+		<div class="col-4">Область применения:</div>
+
+		<div class="col-8">
+			<select name="scopeId">
+				<option value="0" disabled></option>
+				@foreach (var scope in scopeList)
+				{
+					<option value="@scope.Id">
+						@Html.DisplayFor(modelItem => scope.Name)
+					</option>
+				}
+			</select>
+		</div>
+		</div>
+		<div class="row">
+		<div class="col-4">Производитель:</div>
+
+		<div class="col-8">
+			<select name="userID">
+				<option value="0" disabled></option>
+				@foreach (var user in userList)
+				{
+					<option value="@user.Id">
+						@Html.DisplayFor(modelItem => user.Name)
+					</option>
+				}
+			</select>
+		</div>
+		</div>
+	    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Создать" class="btn btn-primary" /></div>
+    </div>
+</form>

@@ -1,0 +1,21 @@
+﻿@using FurnitureAssemblyContracts.ViewModels
+
+
+@{
+    ViewData["Title"] = "Графики";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Графики</h1>
+</div>
+
+<div class="text-center">
+    @{
+        <div>
+            <a asp-action="GraphicOrdersByPreviousYear">График продаж за предыдущий год</a>
+            <a asp-action="GraphicUsersByPreviousMonth">График продаж продавцов за предыдущий месяц</a>
+            <a asp-action="GraphicOrdersByPaymentType">График продаж по типам оплаты</a>
+            <a asp-action="GraphicOrdersByPreviousDay">График продаж за предыдущий день</a>
+        </div>
+    }
+</div>

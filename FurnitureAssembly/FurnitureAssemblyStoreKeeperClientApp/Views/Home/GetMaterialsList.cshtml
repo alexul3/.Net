@@ -1,0 +1,64 @@
+﻿@using FurnitureAssemblyContracts.ViewModels
+
+@model List<MaterialViewModel>
+
+@{
+    ViewData["Title"] = "Материалы";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Материалы</h1>
+</div>
+
+<div class="text-center">
+    @{
+        if (Model == null)
+        {
+            <h3 class="display-4">Авторизируйтесь</h3>
+            return;
+        }
+
+        <div>
+            <a asp-action="CreateMaterial">Создать</a>
+            <a asp-action="UpdateMaterial">Обновить</a>
+            <a asp-action="DeleteMaterial">Удалить</a>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Название
+                    </th>
+                    <th>
+                        Стоимость
+                    </th>
+                    <th>
+                        Область применения
+                    </th>
+                     <th>
+                        Изготовитель
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cost)
+                        </td>
+                         <td>
+                            @Html.DisplayFor(modelItem => item.ScopeName)
+                        </td>
+                         <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

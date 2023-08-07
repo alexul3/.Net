@@ -1,0 +1,48 @@
+﻿@using FurnitureAssemblyContracts.ViewModels;
+@using FurnitureAssemblyDataModels.Models;
+
+@model Tuple<List<SetViewModel>, List<FurnitureModuleViewModel>>
+
+@{
+	ViewData["Title"] = "Добавление мебельных модулей в гарнитур";
+}
+<div class="text-center">
+	<h2 class="display-4">Добавление мебельных модулей в гарнитур</h2>
+</div>
+<form method="post">
+	<div class="row">
+		<div class="col-4">Гарнитур:</div>
+		<div class="col-8">
+			<select id="set" name="set" class="form-control">
+				@foreach (var set in Model.Item1)
+				{
+					<option value="@set.Id">
+						@Html.DisplayFor(modelItem => set.Name)
+					</option>
+				}
+			</select>
+		</div>
+		
+	</div>
+	<div class="row">
+		<div class="col-4">Выбранный мебельный модуль:</div>
+		<div class="col-8">
+			<select id="furnitureModule" name="furnitureModule" class="form-control">
+				@foreach (var furnitureModule in Model.Item2)
+				{
+					<option value="@furnitureModule.Id">
+						@Html.DisplayFor(modelItem => furnitureModule.Name)
+					</option>
+				}
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-4">Количество:</div>
+		<div class="col-8"><input type="text" id="count" name="count" /></div>
+	</div>
+	<div class="row">
+		<div class="col-8"></div>
+		<div class="col-4"><input type="submit" value="Добавить" class="btn btn-primary" /></div>
+	</div>
+</form>

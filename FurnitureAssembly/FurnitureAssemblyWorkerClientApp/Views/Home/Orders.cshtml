@@ -1,0 +1,71 @@
+﻿@using FurnitureAssemblyContracts.ViewModels
+
+@model List<OrderInfoViewModel>
+
+@{
+    ViewData["Title"] = "Формирование заказов";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Заказы</h1>
+</div>
+
+<div class="text-center">
+    @{
+        if (Model == null)
+        {
+            <h3 class="display-4">Авторизируйтесь</h3>
+            return;
+        }
+
+        <div>
+            <a asp-action="CreateOrder">Создать заказ</a>
+            <a asp-action="UpdateOrder">Обновить заказ</a>
+            <a asp-action="DeleteOrder">Удалить заказ</a>
+            <a asp-action="AddSetInOrder">Добавить гарнитур в заказ</a>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Номер
+                    </th>
+                    <th>
+                        Имя заказчика
+                    </th>
+                    <th>
+                        Дата создания
+                    </th>
+                    <th>
+                        Тип оплаты
+                    </th>
+                    <th>
+                        Сумма
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CustomerName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateCreate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PaymentType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sum)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

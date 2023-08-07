@@ -1,0 +1,67 @@
+﻿@using FurnitureAssemblyContracts.ViewModels
+
+@model List<MaterialViewModel>
+
+@{
+    ViewData["Title"] = "Изменение материала";
+    var scopeList = APIClient.GetRequest<List<ScopeViewModel>>($"api/scope/GetScopeList");
+    var userList = APIClient.GetRequest<List<UserViewModel>>($"api/user/GetUserList");
+}
+<div class="text-center">
+    <h2 class="display-4">Изменение материала</h2>
+</div>
+<form method="post">
+    <div class="row">
+        <div class="col-4">Материал:</div>
+        <div class="col-8">
+            <select id="material" name="material" class="form-control">
+                @foreach (var item in Model)
+                {
+                    <option value="@item.Id">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Название:</div>
+        <div class="col-8"><input type="text" name="name" id="name" /></div>
+    </div>
+     <div class="row">
+        <div class="col-4">Стоимость:</div>
+        <div class="col-8"><input type="text" name="cost" id="cost" /></div>
+    </div>
+    
+     <div class="row">
+        <div class="col-4">Область применения:</div>
+        <div class="col-8">
+            <select id="scope" name="scope" class="form-control">
+                @foreach (var item in scopeList)
+                {
+                    <option value="@item.Id">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </option>
+                }
+            </select>
+        </div>
+    </div>
+     <div class="row">
+        <div class="col-4">Производитель:</div>
+        <div class="col-8">
+            <select id="user" name="user" class="form-control">
+                @foreach (var item in userList)
+                {
+                    <option value="@item.Id">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Изменить" class="btn btn-primary" /></div>
+    </div>
+</form>
+

@@ -1,0 +1,80 @@
+﻿@using FurnitureAssemblyContracts.ViewModels
+
+@model List<FurnitureViewModel>
+
+@{
+    ViewData["Title"] = "Мебель";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Мебель</h1>
+</div>
+
+<div class="text-center">
+    @{
+        if (Model == null)
+        {
+            <h3 class="display-4">Авторизируйтесь</h3>
+            return;
+        }
+
+        <div>
+            <a asp-action="CreateFurniture">Создать</a>
+            
+            <a asp-action="DeleteFurniture">Удалить</a>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                 <th>
+                        Id
+                    </th>
+                    <th>
+                        Название
+                    </th>
+                    <th>
+                        Стоимость
+                    </th>
+                    <th>
+                        Дата создания
+                    </th>
+                     <th>
+                        Изготовитель
+                    </th>
+                    <th>
+                        
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                     <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cost)
+                        </td>
+                         <td>
+                            @Html.DisplayFor(modelItem => item.DateCreate)
+                        </td>
+                         <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                             <div class="row">
+                                <div class="col-8"></div>
+                               <a asp-action="UpdateFurniture" asp-route-id="@item.Id">Обновить</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        
+    }
+</div>

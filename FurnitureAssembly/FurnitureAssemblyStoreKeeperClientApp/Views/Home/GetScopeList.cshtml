@@ -1,0 +1,47 @@
+﻿@using FurnitureAssemblyContracts.ViewModels
+
+@model List<ScopeViewModel>
+
+@{
+    ViewData["Title"] = "Области";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Области применения</h1>
+</div>
+
+<div class="text-center">
+    @{
+        if (Model == null)
+        {
+            <h3 class="display-4">Авторизируйтесь</h3>
+            return;
+        }
+
+        <div>
+            <a asp-action="CreateScope">Создать</a>
+            <a asp-action="UpdateScope">Обновить</a>
+            <a asp-action="DeleteScope">Удалить</a>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Название
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                       
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

@@ -1,0 +1,99 @@
+﻿@using FurnitureAssemblyContracts.ViewModels
+@model FurnitureViewModel
+@{
+    ViewData["Title"] = "Обновление мебели";
+    var materialList = APIClient.GetRequest<List<MaterialViewModel>>($"api/material/GetMaterialList");
+    var userList = APIClient.GetRequest<List<UserViewModel>>($"api/user/GetUserList");
+}
+<div class="text-center">
+    <h2 class="display-4">Обновление мебели</h2>
+</div>
+<form method="post">
+    <div class="row" id = @Model?.Id>
+        <div class="col-4">Название:</div>
+        <div class="col-8"><input type="text" name="name" id="name" value=@Model.Name /></div>
+    </div>
+     <div class="row">
+        <div class="col-4">Стоимость:</div>
+        <div class="col-8">@Html.DisplayFor(modelItem => Model.Cost)</div>
+    </div>
+     <div class="row">
+        <div class="col-4">Изготовитель:</div>
+         <div class="row">
+        <div class="col-8">
+           
+            @Html.DisplayFor(modelItem => Model.UserName)
+                
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                 <th>
+                </th>
+                <th>
+                    Название
+                </th>
+                <th>
+                    Стоимость
+                </th>
+                <th>
+                    Количество
+                </th>
+                 <th>
+                    Изготовитель
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in materialList)
+            {
+                <tr>
+                    <td>
+                       @if(Model.FurnitureMaterials.Keys.Contains(item.Id))
+                       {
+                        <input type="checkbox" class="form-check-input" name="MaterialsIds[]" value="@item.Id" id="@item.Id" checked = true>
+
+                       }
+                       else
+                       {
+                        <input type="checkbox" class="form-check-input" name="MaterialsIds[]" value="@item.Id" id="@item.Id">
+
+                       }
+                        
+					</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cost)
+                    </td>
+                    <td>
+                          @if(Model.FurnitureMaterials.Keys.Contains(item.Id))
+                       {
+                            int count = Model.FurnitureMaterials[item.Id].Item2;
+                            <input type="text" id="@item.Id:count" name="counts[]" value=@count />
+
+                       }
+                       else
+                       {
+                       <input type="text" id="@item.Id:count" name="counts[]"/>
+
+                       }
+						
+					</td>
+                     <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Изменить" class="btn btn-primary" /></div>
+    </div>
+</form>
+

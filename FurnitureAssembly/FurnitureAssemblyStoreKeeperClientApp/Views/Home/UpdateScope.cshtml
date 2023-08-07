@@ -1,0 +1,34 @@
+﻿@using FurnitureAssemblyContracts.ViewModels
+
+@model List<ScopeViewModel>
+
+@{
+    ViewData["Title"] = "Изменение области";
+}
+<div class="text-center">
+    <h2 class="display-4">Изменение области применения</h2>
+</div>
+<form method="post">
+    <div class="row">
+        <div class="col-4">Область применения:</div>
+        <div class="col-8">
+            <select id="scope" name="scope" class="form-control">
+                @foreach (var item in Model)
+                {
+                    <option value="@item.Id">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Название:</div>
+        <div class="col-8"><input type="text" name="name" id="name" /></div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Изменить" class="btn btn-primary" /></div>
+    </div>
+</form>
+

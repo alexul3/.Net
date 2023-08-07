@@ -1,0 +1,95 @@
+﻿@using FurnitureAssemblyContracts.ViewModels
+@{
+    ViewData["Title"] = "Создание мебели";
+    var materialList = APIClient.GetRequest<List<MaterialViewModel>>($"api/material/GetMaterialList");
+    var userList = APIClient.GetRequest<List<UserViewModel>>($"api/user/GetUserList");
+}
+<div class="text-center">
+    <h2 class="display-4">Создание мебели</h2>
+</div>
+<form method="post">
+    <div class="row">
+        <div class="col-4">Название:</div>
+        <div class="col-8"><input type="text" name="name" id="name" /></div>
+    </div>
+    <div class="row">
+        <div class="col-4">Стоимость:</div>
+        <div class="col-8"><input type="text" name="cost" id="cost" /></div>
+    <div class="row">
+		<div class="col-4">Изготовитель:</div>
+
+		<div class="col-8">
+			<select id="userId" name="userId">
+				<option value="0" disabled></option>
+				@foreach (var user in userList)
+				{
+					<option value="@user.Id">
+						@Html.DisplayFor(modelItem => user.Name)
+					</option>
+				}
+			</select>
+		</div>
+		</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    
+                </th>
+                <th>
+                    Название
+                </th>
+                <th>
+                    Стоимость
+                </th>
+                <th>
+                    Количество
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in materialList)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox" class="form-check-input" name="MaterialsIds[]" value="@item.Id" id="@item.Id">
+					</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cost)
+                    </td>
+                    <td>
+						<input type="text" id="@item.Id:count" name="counts[]" />
+					</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Создать" class="btn btn-primary" /></div>
+    </div>
+</form>
+<script>
+	$('#furniture').on('change', function () {
+		check();
+	});
+	$('#count').on('change', function () {
+		check();
+	});
+	function check() {
+		var count = $('#count').val();
+		var furniture = $('#furniture').val();
+		if (count && furniture) {
+			$.ajax({
+				method: "POST",
+				url: "/Home/Calc",
+				data: { count: count, furniture: furniture },
+				success: function (result) {
+							$("#cost").val(result);}});
+		};
+	}
+</script>

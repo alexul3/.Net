@@ -1,0 +1,27 @@
+﻿@using FurnitureAssemblyContracts.ViewModels;
+@{
+	ViewData["Title"] = "Удаление заказа";
+}
+@model List<OrderInfoViewModel>
+<div class="text-center">
+	<h2 class="display-4">Удаление заказа</h2>
+</div>
+<form method="post">
+	<div class="row">
+		<div class="col-4">Выбранный заказ:</div>
+		<div class="col-8">
+			<select id="order" name="order" class="form-control">
+				@foreach (var item in Model)
+				{
+					<option value="@item.Id">
+						@Html.DisplayFor(modelItem => item.Id)
+					</option>
+				}
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-8"></div>
+		<div class="col-4"><input type="submit" value="Удалить" class="btn btn-primary" /></div>
+	</div>
+</form>

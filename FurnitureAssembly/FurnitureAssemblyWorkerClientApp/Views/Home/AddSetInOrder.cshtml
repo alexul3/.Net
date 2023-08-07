@@ -1,0 +1,79 @@
+﻿@using FurnitureAssemblyContracts.ViewModels;
+@using FurnitureAssemblyDataModels.Models;
+
+@model Tuple<List<OrderInfoViewModel>, List<SetViewModel>>
+
+@{
+	ViewData["Title"] = "Добавление гарнитур в заказ";
+}
+<div class="text-center">
+	<h2 class="display-4">Добавление гарнитур в заказ</h2>
+</div>
+<form method="post">
+	<div class="row">
+		<div class="col-4">Заказ:</div>
+		<div class="col-8">
+			<select id="order" name="order" class="form-control">
+				@foreach (var order in Model.Item1)
+				{
+					<option value="@order.Id">
+						@Html.DisplayFor(modelItem => order.Id)
+					</option>
+				}
+			</select>
+		</div>
+
+	</div>
+	<div class="row">
+		<div class="col-4">Гарнитуры:</div>
+		<div class="col-8">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>
+
+						</th>
+						<th>
+							Название
+						</th>
+						<th>
+							Стоимость
+						</th>
+						<th>
+							Дата создания
+						</th>
+						<th>
+							Количество
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var set in Model.Item2)
+					{
+						<tr>
+							<td>
+								<input type="checkbox" class="form-check-input" name="setIds[]" value="@set.Id" id="@set.Id">
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => set.Name)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => set.Cost)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => set.DateCreate)
+							</td>
+							<td>
+								<input type="text" id="@set.Id:count" name="counts[]" />
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-8"></div>
+		<div class="col-4"><input type="submit" value="Добавить" class="btn btn-primary" /></div>
+	</div>
+</form>

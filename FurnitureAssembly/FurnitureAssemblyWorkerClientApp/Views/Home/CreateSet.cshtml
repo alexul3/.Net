@@ -1,0 +1,65 @@
+﻿@using FurnitureAssemblyContracts.ViewModels;
+@{
+    ViewData["Title"] = "Создание гарнитура";
+}
+@model List<FurnitureModuleViewModel>
+<div class="text-center">
+    <h2 class="display-4">Создание гарнитура</h2>
+</div>
+<form method="post">
+    <div class="row">
+        <div class="col-4">Название:</div>
+        <div class="col-8"><input type="text" name="name" id="name" /></div>
+    </div>
+    <div class="row">
+        <div class="col-4">Стоимость:</div>
+        <div class="col-8"><input type="text" name="cost" id="cost" /></div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+
+                </th>
+                <th>
+                    Название
+                </th>
+                <th>
+                    Стоимость
+                </th>
+                <th>
+                    Дата создания
+                </th>
+                <th>
+                    Количество
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox" class="form-check-input" name="furnitureModuleIds[]" value="@item.Id" id="@item.Id">
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cost)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCreate)
+                    </td>
+                    <td>
+                        <input type="text" id="@item.Id:count" name="counts[]" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Создать" class="btn btn-primary" /></div>
+    </div>
+</form>

@@ -1,0 +1,64 @@
+﻿@using FurnitureAssemblyContracts.ViewModels
+
+@model List<FurnitureModuleViewModel>
+
+@{
+    ViewData["Title"] = "Формирование мебельнго модуля";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Мебельные модули</h1>
+</div>
+
+<div class="text-center">
+    @{
+        if (Model == null)
+        {
+            <h3 class="display-4">Авторизируйтесь</h3>
+            return;
+        }
+
+        <div>
+            <a asp-action="CreateFurnitureModule">Создать мебельный модуль</a>
+            <a asp-action="UpdateFurnitureModule">Обновить мебельный модуль</a>
+            <a asp-action="DeleteFurnitureModule">Удалить мебельный модуль</a>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Номер
+                    </th>
+                    <th>
+                        Название
+                    </th>
+                    <th>
+                        Стоимость
+                    </th>
+                    <th>
+                        Дата создания
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cost)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateCreate)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
